@@ -14,7 +14,7 @@
         </div>
         <div class="main">
             <h3 class="big-title">添加任务：</h3>
-            <input class="task-input" type="text" />
+            <input class="task-input" v-model="todoNew" v-on:keyup.enter="addTodoNew" type="text" />
             <ul class="task-count">
                 <li>3个未完成任务</li>
                 <li class="action">
@@ -27,14 +27,14 @@
             <div class="task">
                 <span class="no-task-tip">还没添加任务任务</span>
                 <ul class="todo-list">
-                    <li class="todo completed">
+                    <li class="todo" v-bind:class="{completed: item.isChecked}" v-for="item in todoList">
                         <div class="view">
-                            <input class="toggle" type="checkbox" />
-                            <label>Angular4学习</label>
-                            <button class="destroy"></button>
+                            <input class="toggle" v-model="item.isChecked" type="checkbox" />
+                            <label>{{item.todoTitle}}</label>
+                            <button class="destroy" v-on:click="deleteTodo(item)"></button>
                         </div>
                     </li>
-                    <li class="todo">
+                    <!--li class="todo">
                         <div class="view">
                             <input class="toggle" type="checkbox" />
                             <label>Vue学习</label>
@@ -48,7 +48,7 @@
                             <button class="destroy"></button>
                         </div>
                         <input class="edit" type="text" value="英语学习"/>
-                    </li>
+                    </li-->
                 </ul>
             </div>
         </div>
