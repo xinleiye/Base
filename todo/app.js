@@ -1,17 +1,13 @@
-var todoList = [
-    {
-        todoTitle: "Angular4学习",
-        isChecked: false
+var storage = {
+    save(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
     },
-    {
-        todoTitle: "Vue学习",
-        isChecked: false
-    },
-    {
-        todoTitle: "英语学习",
-        isChecked: false
+    fetch(key) {
+        return JSON.parse(localStorage.getItem(key)) || [];
     }
-]
+}
+
+var todoList = storage.fetch("todoList");
 
 var app = new Vue({
     el: ".main",
@@ -23,6 +19,14 @@ var app = new Vue({
         editingTodo: "",
         // 保存计划的原值，用于按esc取消编辑时，还原原值
         oldTodo: ""
+    },
+    watch: {
+        todoList: {
+            handler() {
+                storage.save("todoList", this.todoList);
+            },
+            deep: true
+        }
     },
     computed:{
         unCompleteTodo() {
