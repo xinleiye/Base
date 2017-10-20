@@ -25,7 +25,7 @@
             </ul>
             <h3 class="big-title">任务列表：</h3>
             <div class="task">
-                <span class="no-task-tip">还没添加任务任务</span>
+                <span class="no-task-tip" v-show="!todoList.length">还没添加任务任务</span>
                 <ul class="todo-list">
                     <li class="todo" v-bind:class="{completed: item.isChecked, editing: item === editingTodo}" v-for="item in todoList">
                         <div class="view">
