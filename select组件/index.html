@@ -10,8 +10,12 @@
 </head>
 <body>
     <div id="app">
-        <custom-select btn-search="查询"></custom-select>
-        <custom-select btn-search="搜索"></custom-select>
+        <div style="float:left">
+            <custom-select btn-search="查询" v-bind:data-List="cityList"></custom-select>
+        </div>
+        <div style="float:left">
+            <custom-select btn-search="搜索" v-bind:data-List="dateList"></custom-select>
+        </div>
     </div>
     <!--div id="app2">
         <custom-select></custom-select>
@@ -20,30 +24,49 @@
 <script>
     // 全局注册组件
     Vue.component("customSelect", {
+        data: function() {
+            return {
+                isShow: false,
+                dataSelect: ""
+            }
+        },
         // 使用props给组件传递参数：父->子
-        props: ["btnSearch"],
+        // 父组件通过监听自定义事件"datachange"，来接受子组件传递的数据
+        props: ["btnSearch", "dataList"],
         template: `<section class="warp">
             <div class="searchIpt clearFix">
                 <div class="clearFix">
-                    <input type="text" class="keyWord" value="" />
+                    <input type="text" class="keyWord" value="" v-bind:value="dataSelect" v-on:click="isShow=!isShow"/>
                     <input type="button" v-bind:value="btnSearch" />
                     <span></span>
                 </div>
-                <ul class="list">
-                    <li>Html+css</li>
-                    <li>Html+css3</li>
-                    <li>javascript</li>
-                    <li>angular</li>
-                    <li>reacte</li>
-                    <li>vue</li>
-                    <li>jquery</li>
-                    <li>nodejs</li>
-                </ul>
+                <custom-list v-show="isShow" v-bind:dataList="dataList" v-on:datachange="handleDataChange"></custom-list>
             </div>
-            </section>`
+            </section>`,
+        methods: {
+            handleDataChange(val) {
+                this.dataSelect = val;
+            }
+        }
+    });
+    Vue.component("customList", {
+        props: ["dataList"],
+        template: `<ul class="list">
+                <li v-for="item in dataList" v-on:click="handleSelectVal(item)">{{item}}</li>
+            </ul>`,
+        methods: {
+            handleSelectVal(item) {
+                // 子组件通过触发"datachange"，将数据传递给父组件
+                this.$emit("datachange", item);
+            }
+        }
     });
     new Vue({
-        el: "#app"
+        el: "#app",
+        data: {
+            cityList: ["BeiJing", "ShangHai", "ShenZhen"],
+            dateList: ["2017.09.10", "2017.01.24", "2017.05.01"]
+        }
     });
     // 局部注册组件
 /*
