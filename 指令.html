@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Vue</title>
+        <script src="./public/vue.js"></script>
+    </head>
+    <body>
+        <div id="demo">
+            <input type="button" v-bind:customID="id" v-on:click="clickHandle" value="Click me"/>
+        </div>
+    </body>
+    <script>
+        let obj = {
+            message: "Hello Vue",
+            id: "btn1"
+        };
+
+        var vm = new Vue({
+            el: "#demo",
+            data: obj,
+            methods: {
+                clickHandle() {
+                    alert("Click Me");
+                }
+            }
+        });
+    </script>
+</html>

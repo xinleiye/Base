@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Vue</title>
+        <script src="./public/vue.js"></script>
+    </head>
+    <body>
+        <div id="demo">
+            <input type="button" v-bind:customID="id" v-on:click="clickHandle" value="Click me"/>
+        </div>
+    </body>
+    <script type="x-template" id="temp">
+        <span>{{message}}</span>
+    </script>
+    <script>
+        let obj = {
+            message: "Hello Vue"
+        };
+
+        var vm = new Vue({
+            el: "#demo",
+            data: obj,
+            template: "#temp"
+        });
+    </script>
+</html>

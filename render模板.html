@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Vue</title>
+        <script src="./public/vue.js"></script>
+    </head>
+    <style>
+        .red{
+            background: red;
+        }
+    </style>
+    <body>
+        <div id="demo">
+        </div>
+    </body>
+    <script>
+        let obj = {
+            message: "Hello Vue"
+        };
+
+        var vm = new Vue({
+            el: "#demo",
+            data: obj,
+
+            render(createElement) {
+                var domTree;
+
+                domTree = createElement(
+                    "ul",
+                    {
+                        class: {red: true},
+                        style: {
+                            fontSize: "14px",
+                            listStyle: "none",
+                        },
+                        attrs: {
+                            id: "list"
+                        }
+                        
+                    },
+                    [
+                        createElement("li", 1),
+                        createElement("li", 2),
+                        createElement("li", 3)
+                    ]
+                );
+
+                return domTree;
+            }
+        });
+    </script>
+</html>

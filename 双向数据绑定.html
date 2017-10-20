@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Vue</title>
+        <script src="./public/vue.js"></script>
+    </head>
+    <body>
+        <div id="demo">
+            <input type="text" v-model="message" />
+            <span>{{message}}</span>
+        </div>
+    </body>
+    <script>
+        let obj = {
+            message: "Hello Vue"
+        };
+
+        var vm = new Vue({
+            el: "#demo",
+            data: obj
+        });
+    </script>
+</html>
