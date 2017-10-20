@@ -9,6 +9,7 @@ var storage = {
 
 var todoList = storage.fetch("todoList");
 
+
 var app = new Vue({
     el: ".main",
     data: {
@@ -18,7 +19,15 @@ var app = new Vue({
         // 保存正在编辑的计划
         editingTodo: "",
         // 保存计划的原值，用于按esc取消编辑时，还原原值
-        oldTodo: ""
+        oldTodo: "",
+        // 计划状态过滤器
+        todoFilter: "all",
+        // 计划状态
+        todoStatus: [
+            { status: "all", desc: "所有任务"},
+            { status: "unfinish", desc: "未完成任务"},
+            { status: "finish", desc: "已完成任务"}
+        ],
     },
     watch: {
         todoList: {
@@ -31,6 +40,25 @@ var app = new Vue({
     computed:{
         unCompleteTodo() {
             return this.todoList.filter((item) => {return !item.isChecked;}).length;
+        },
+        todoListFilter() {
+            var res;
+
+            switch (this.todoFilter) {
+            case "all":
+                res = this.todoList;
+                break;
+            case "unfinish":
+                res = this.todoList.filter((item) => { return !item.isChecked;});
+                break;
+            case "finish":
+                res = this.todoList.filter((item) => {return item.isChecked;});
+                break;
+            default:
+                res = this.todoList;
+                break;
+            }
+            return res;
         }
     },
     methods: {
@@ -70,3 +98,11 @@ var app = new Vue({
         }
     }
 });
+
+function watchHashChange() {
+    app.todoFilter = window.location.hash.slice(1);
+}
+
+watchHashChange();
+
+window.addEventListener("hashchange", watchHashChange);

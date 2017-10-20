@@ -18,16 +18,14 @@
             <ul class="task-count">
                 <li>{{unCompleteTodo}} 个未完成任务</li>
                 <li class="action">
-                    <a class="active" href="#">所有任务</a>
-                    <a href="#">未完成任务</a>
-                    <a href="#">已完成任务</a>
+                    <a v-bind:class="{active: status.status === todoFilter}" v-for="status in todoStatus" v-bind:href="'#'+status.status">{{status.desc}}</a>
                 </li>
             </ul>
             <h3 class="big-title">任务列表：</h3>
             <div class="task">
                 <span class="no-task-tip" v-show="!todoList.length">还没添加任务任务</span>
                 <ul class="todo-list">
-                    <li class="todo" v-bind:class="{completed: item.isChecked, editing: item === editingTodo}" v-for="item in todoList">
+                    <li class="todo" v-bind:class="{completed: item.isChecked, editing: item === editingTodo}" v-for="item in todoListFilter">
                         <div class="view">
                             <input class="toggle" v-model="item.isChecked" type="checkbox" />
                             <label v-on:dblclick="editTodo(item)">{{item.todoTitle}}</label>
@@ -35,21 +33,6 @@
                         </div>
                         <input class="edit" type="text" v-model="item.todoTitle" v-focus="item === editingTodo" v-on:blur="editTodoSuccess" v-on:keyup.esc="editTodoCancel(item)"/>
                     </li>
-                    <!--li class="todo">
-                        <div class="view">
-                            <input class="toggle" type="checkbox" />
-                            <label>Vue学习</label>
-                            <button class="destroy"></button>
-                        </div>
-                    </li>
-                    <li class="todo editing">
-                        <div class="view">
-                            <input class="toggle" type="checkbox" />
-                            <label>英语学习</label>
-                            <button class="destroy"></button>
-                        </div>
-                        <input class="edit" type="text" value="英语学习"/>
-                    </li-->
                 </ul>
             </div>
         </div>
