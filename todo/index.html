@@ -16,7 +16,7 @@
             <h3 class="big-title">添加任务：</h3>
             <input class="task-input" v-model="todoNew" v-on:keyup.enter="addTodoNew" type="text" />
             <ul class="task-count">
-                <li>3个未完成任务</li>
+                <li>{{unCompleteTodo}} 个未完成任务</li>
                 <li class="action">
                     <a class="active" href="#">所有任务</a>
                     <a href="#">未完成任务</a>
@@ -27,12 +27,13 @@
             <div class="task">
                 <span class="no-task-tip">还没添加任务任务</span>
                 <ul class="todo-list">
-                    <li class="todo" v-bind:class="{completed: item.isChecked}" v-for="item in todoList">
+                    <li class="todo" v-bind:class="{completed: item.isChecked, editing: item === editingTodo}" v-for="item in todoList">
                         <div class="view">
                             <input class="toggle" v-model="item.isChecked" type="checkbox" />
-                            <label>{{item.todoTitle}}</label>
+                            <label v-on:dblclick="editTodo(item)">{{item.todoTitle}}</label>
                             <button class="destroy" v-on:click="deleteTodo(item)"></button>
                         </div>
+                        <input class="edit" type="text" v-model="item.todoTitle" v-focus="item === editingTodo" v-on:blur="editTodoSuccess" v-on:keyup.esc="editTodoCancel(item)"/>
                     </li>
                     <!--li class="todo">
                         <div class="view">
