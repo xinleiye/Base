@@ -6,29 +6,75 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Select component</title>
     <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script src="../public/vue.js"></script>
 </head>
 <body>
-    <section class="warp">
-        <div class="searchIpt clearFix">
-            <div class="clearFix">
-                <input type="text" class="keyWord" value="" />
-                <input type="button" value="GO" />
-                <span></span>
-            </div>
-            <ul class="list">
-                <li>Html+css</li>
-                <li>Html+css3</li>
-                <li>javascript</li>
-                <li>angular</li>
-                <li>reacte</li>
-                <li>vue</li>
-                <li>jquery</li>
-                <li>nodejs</li>
-            </ul>
-        </div>
-    </section>
+    <div id="app">
+        <custom-select btn-search="查询"></custom-select>
+        <custom-select btn-search="搜索"></custom-select>
+    </div>
+    <!--div id="app2">
+        <custom-select></custom-select>
+    </div-->
 </body>
 <script>
+    // 全局注册组件
+    Vue.component("customSelect", {
+        // 使用props给组件传递参数：父->子
+        props: ["btnSearch"],
+        template: `<section class="warp">
+            <div class="searchIpt clearFix">
+                <div class="clearFix">
+                    <input type="text" class="keyWord" value="" />
+                    <input type="button" v-bind:value="btnSearch" />
+                    <span></span>
+                </div>
+                <ul class="list">
+                    <li>Html+css</li>
+                    <li>Html+css3</li>
+                    <li>javascript</li>
+                    <li>angular</li>
+                    <li>reacte</li>
+                    <li>vue</li>
+                    <li>jquery</li>
+                    <li>nodejs</li>
+                </ul>
+            </div>
+            </section>`
+    });
+    new Vue({
+        el: "#app"
+    });
+    // 局部注册组件
+/*
+    new Vue({
+        el: "#app2",
+        components: {
+            "custom-select": {
+                template: `<section class="warp">
+                    <div class="searchIpt clearFix">
+                        <div class="clearFix">
+                            <input type="text" class="keyWord" value="" />
+                            <input type="button" value="搜索" />
+                            <span></span>
+                        </div>
+                        <ul class="list">
+                            <li>Html+css</li>
+                            <li>Html+css3</li>
+                            <li>javascript</li>
+                            <li>angular</li>
+                            <li>reacte</li>
+                            <li>vue</li>
+                            <li>jquery</li>
+                            <li>nodejs</li>
+                        </ul>
+                    </div>
+                    </section>`
+            }
+        }
+    });
+*/
+/* 
     var keyWord = document.querySelector(".keyWord");
     var list = document.querySelector(".list");
     var lis = list.querySelectorAll("li");
@@ -52,5 +98,6 @@
             keyWord.value = this.innerHTML;
         }
     }
+*/
 </script>
 </html>
