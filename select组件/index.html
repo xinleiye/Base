@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Select component</title>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+</head>
+<body>
+    <section class="warp">
+        <div class="searchIpt clearFix">
+            <div class="clearFix">
+                <input type="text" class="keyWord" value="" />
+                <input type="button" value="GO" />
+                <span></span>
+            </div>
+            <ul class="list">
+                <li>Html+css</li>
+                <li>Html+css3</li>
+                <li>javascript</li>
+                <li>angular</li>
+                <li>reacte</li>
+                <li>vue</li>
+                <li>jquery</li>
+                <li>nodejs</li>
+            </ul>
+        </div>
+    </section>
+</body>
+<script>
+    var keyWord = document.querySelector(".keyWord");
+    var list = document.querySelector(".list");
+    var lis = list.querySelectorAll("li");
+
+    keyWord.onfocus = function() {
+        list.style.display = "block";
+    }
+
+    keyWord.onblur = function() {
+        setTimeout(function() {
+            list.style.display = "none";
+        }, 80);
+    }
+
+    for (var i = 0; i < lis.length; i++) {
+        lis[i].onClick = function() {
+            for (var i = 0; i < lis.length; i++) {
+                lis[i].className = "";
+            }
+            this.className = "active";
+            keyWord.value = this.innerHTML;
+        }
+    }
+</script>
+</html>
