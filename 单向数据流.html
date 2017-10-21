@@ -9,8 +9,11 @@
 </head>
 <body>
     <div id="app">
+        <div>
+            <h4>父组件计数：</h4><span>{{count}}</span>
+        </div>
         <!--注意大小写，在Html中通过v-bind绑定的componentCount在组件定义中，需要使用小写，即componentcount-->
-        <custom-btn v-bind:componentCount="count"></custom-btn>
+        <custom-btn v-bind:componentCount="count" v-on:updateCount="updateCount"></custom-btn>
     </div>
     <script>
         Vue.component("customBtn", {
@@ -22,6 +25,7 @@
             },
             template: `
                 <div>
+                    <h4>子组件计数</h4>
                     <input type="button" value="增加计数" v-on:click="increaseCount" />
                     <span>{{increaseCount2}}</span>
                 </div>
@@ -34,6 +38,8 @@
             methods: {
                 increaseCount() {
                     this.newCount++;
+                    // 子组件状态发生化时，主动触发自定义事件
+                    this.$emit("updatecount");
                 }
             }
         })
@@ -41,6 +47,12 @@
             el: "#app",
             data: {
                 count: 0
+            },
+            methods:{
+                // 定义自定义事件的处理函数
+                updateCount() {
+                    this.count++;
+                }
             }
         })
     </script>
