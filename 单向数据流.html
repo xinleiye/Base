@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>单向数据流</title>
+    <script src="./public/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!--注意大小写，在Html中通过v-bind绑定的componentCount在组件定义中，需要使用小写，即componentcount-->
+        <custom-btn v-bind:componentCount="count"></custom-btn>
+    </div>
+    <script>
+        Vue.component("customBtn", {
+            props: ["componentcount"],
+            data: function() {
+                return {
+                    newCount: this.componentcount
+                };
+            },
+            template: `
+                <div>
+                    <input type="button" value="增加计数" v-on:click="increaseCount" />
+                    <span>{{increaseCount2}}</span>
+                </div>
+            `,
+            computed: {
+                increaseCount2() {
+                    return this.newCount;
+                }
+            },
+            methods: {
+                increaseCount() {
+                    this.newCount++;
+                }
+            }
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                count: 0
+            }
+        })
+    </script>
+</body>
+</html>
