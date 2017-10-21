@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>props参数验证</title>
+    <script src="./public/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div>
+            <h4>父组件计数：</h4><span>{{count}}</span>
+        </div>
+        <!--注意大小写，在Html中通过v-bind绑定的componentCount在组件定义中，需要使用小写，即componentcount-->
+        <custom-btn v-bind:componentCount="count" v-on:updateCount="updateCount"></custom-btn>
+    </div>
+    <script>
+        Vue.component("customBtn", {
+            props: {
+                componentcount: {
+                    // 制定参数的传入类型[String, Number]
+                    type: [Number],
+                    // 设置默认值，可以函数
+                    //default: 10,
+                    // 是否必须传入：true是，false可以不传入
+                    required: true,
+                    // 自定义验证规则
+                    validator: function(val) {
+                        return val > 10;
+                    }
+                }
+            },
+            data: function() {
+                return {
+                    newCount: this.componentcount
+                };
+            },
+            template: `
+                <div>
+                    <h4>子组件计数</h4>
+                    <input type="button" value="增加计数" v-on:click="increaseCount" />
+                    <span>{{increaseCount2}}</span>
+                </div>
+            `,
+            computed: {
+                increaseCount2() {
+                    return this.newCount;
+                }
+            },
+            methods: {
+                increaseCount() {
+                    this.newCount++;
+                    // 子组件状态发生化时，主动触发自定义事件
+                    this.$emit("updatecount");
+                }
+            }
+        })
+        var app = new Vue({
+            el: "#app",
+            data: {
+                count: 20
+            },
+            methods:{
+                // 定义自定义事件的处理函数
+                updateCount() {
+                    this.count++;
+                }
+            }
+        })
+    </script>
+</body>
+</html>
