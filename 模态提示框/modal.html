@@ -11,7 +11,11 @@
 <body>
     <div id="app">
         <my-modal></my-modal>
-        <my-modal modal-title="提醒"></my-modal>
+        <my-modal modal-title="提醒">
+            <ul slot="modal-content">
+                <li v-for="item in list">{{item}}</li>
+            </ul>
+        </my-modal>
     </div>
     <script>
         /*
@@ -37,7 +41,9 @@
                         <h4>{{modalTitle}}</h4>
                     </div>
                     <div class="modal-content">
-                        <div>内容</div>
+                        <div>
+                            <slot name="modal-content">模态对话框内容</slot>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <input class="btn blue" type="button" value="确定" />
@@ -47,7 +53,10 @@
             `
         });
         var app = new Vue({
-            el: "#app"
+            el: "#app",
+            data: {
+                list: [..."超级玛丽"]
+            }
         });
     </script>
 </body>
