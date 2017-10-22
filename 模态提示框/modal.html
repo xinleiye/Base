@@ -6,21 +6,49 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="./style.css">
     <title>模态提示框</title>
+    <script src="../public/vue.js"></script>
 </head>
 <body>
     <div id="app">
-        <div class="modal">
-            <div class="modal-header">
-                <h4>标题</h4>
-            </div>
-            <div class="modal-content">
-                <div>内容</div>
-            </div>
-            <div class="modal-footer">
-                <input class="btn blue" type="button" value="确定" />
-                <input class="btn" type="button" value="取消" />
-            </div>
-        </div>
+        <my-modal></my-modal>
+        <my-modal modal-title="提醒"></my-modal>
     </div>
+    <script>
+        /*
+            设置props：
+                modal-header 默认为“标题”
+            模板定制：
+                slot：modal-content
+                slot：modal-footer
+            状态变化：
+                事件名：click-ok 点击确定按钮触发
+                事件名：click-cancel 点击取消触发
+        */
+        Vue.component("myModal", {
+            props: {
+                modalTitle: {
+                    type: String,
+                    default: "模态对话框标题"
+                }
+            },
+            template: `
+                <div class="modal">
+                    <div class="modal-header">
+                        <h4>{{modalTitle}}</h4>
+                    </div>
+                    <div class="modal-content">
+                        <div>内容</div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn blue" type="button" value="确定" />
+                        <input class="btn" type="button" value="取消" />
+                    </div>
+                </div>
+            `
+        });
+        var app = new Vue({
+            el: "#app"
+        });
+    </script>
 </body>
 </html>
