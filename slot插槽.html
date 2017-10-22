@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slot插槽</title>
+    <script src="./public/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <h2>父组件：</h2>
+        <custom-elem>
+            <!--父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译-->
+            <p>{{message}}</p>
+            <!--不具名slot，此处的内容会替换子组件中的slot-->
+            <div>替换无名</div>
+            <div slot="one">替换First</div>
+            <div slot="two">替换Second</div>
+            <div slot="three">替换Third</div>
+        </custom-elem>
+    </div>
+    <script>
+        Vue.component("custom-elem", {
+            data() {
+                return {
+                    message: "这是子组件信息"
+                }
+            },
+            template: `
+                <div>
+                    <slot></slot>
+                    <p>{{message}}</p>
+                    <slot name="one"><p>First</p></slot>
+                    <slot name="three"><p>Second</p></slot>
+                    <slot name="two"><p>Third</p></slot>
+                </div>
+            `
+        })
+        new Vue({
+            el: "#app",
+            data: {
+                message: "父组件数据"
+            }
+        })
+    </script>
+</body>
+</html>
