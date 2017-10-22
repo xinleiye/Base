@@ -10,15 +10,15 @@
 </head>
 <body>
     <div id="app">
-        <my-modal></my-modal>
+        <my-modal v-on:click-ok="handleOk" v-on:click-reset="handleReset" v-on:click-cancel="handleCancel"></my-modal>
         <my-modal modal-title="提醒">
             <ul slot="modal-content">
                 <li v-for="item in list">{{item}}</li>
             </ul>
-            <div slot="modal-footer">
-                <span>确定</span>
-                <span>重置</span>
-                <span>取消</span>
+            <div slot="modal-footer" >
+                <span @click="showOkMessage">确定</span>
+                <span @click="showResetMessage">重置</span>
+                <span @click="showCancelMessage">取消</span>
             </div>
         </my-modal>
     </div>
@@ -52,17 +52,47 @@
                     </div>
                     <div class="modal-footer">
                         <slot name="modal-footer">
-                            <input class="btn blue" type="button" value="确定" />
-                            <input class="btn" type="button" value="取消" />
+                            <input class="btn blue" type="button" @click="clickOk" value="确定" />
+                            <input class="btn" type="button" @click="clickCancel" value="取消" />
                         </slot>
                     </div>
                 </div>
-            `
+            `,
+            methods: {
+                clickOk() {
+                    console.log("OK");
+                    this.$emit("click-ok");
+                },
+                clickCancel() {
+                    console.log("Cancel");
+                    this.$emit("click-cancel");
+                }
+            }
         });
         var app = new Vue({
             el: "#app",
             data: {
                 list: [..."超级玛丽"]
+            },
+            methods: {
+                handleOk() {
+                    console.log("o");
+                },
+                handleReset() {
+                    console.log("R");
+                },
+                handleCancel() {
+                    console.log("c");
+                },
+                showOkMessage() {
+                    console.log("I'm Ok");
+                },
+                showResetMessage() {
+                    console.log("I'm reset");
+                },
+                showCancelMessage() {
+                    console.log("I'm cancel");
+                }
             }
         });
     </script>
