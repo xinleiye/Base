@@ -11,13 +11,76 @@
 </head>
 <body>
     <div id="app">
-        <div class="m-alert m-alert-success">
-            <i class="m-icon m-icon-success"></i>
-            <div class="m-content">
-                <span class="m-message">这里有一个消息要提示</span>
-                <i class="m-closebtn m-icon-close"></i>
-            </div>
-        </div>
+        <my-alert type="warning" style="background-color: pink;">
+            <span slot="alert-content">山丘 - 李宗盛</span>
+        </my-alert>
+        <my-alert type="error" content="听说爱情回来过 - 杨宗纬" v-bind:enableicon="false" v-bind:enableClose="false"></my-alert>
+        <my-alert>
+            <template slot="alert-content">
+                <p><strong>1. </strong>认真的雪 - 薛之谦</p>
+                <p><strong>2. </strong>没那么简单 - 黄小琥</p>
+            </template>
+        </my-alert>
     </div>
+    <script>
+        Vue.component("my-alert", {
+            props: {
+                type: {
+                    type: String,
+                    default: "info",
+                    validator: function(val) {
+                        return ["info", "success", "warning", "error"].indexOf(val) >= 0;
+                    }
+                },
+                content: {
+                    type: String,
+                    default: "这里有一个消息要提示",
+                },
+                enableclose: {
+                    type: Boolean,
+                    default: true
+                },
+                enableicon: {
+                    type: Boolean,
+                    default: true
+                },
+                custstyle: String
+            },
+            computed: {
+                typeClass() {
+                    return `m-alert-${this.type}`;
+                },
+                iconClass() {
+                    return `m-icon-${this.type}`;
+                }
+            },
+            template: `
+                <div class="m-alert" v-bind:class="[typeClass]" style="style">
+                    <slot name="alert-icon">
+                        <i v-if="enableicon" class="m-icon" v-bind:class="[iconClass]"></i>
+                    </slot>
+                    <div class="m-content">
+                        <slot name="alert-content">
+                            <span class="m-message">{{content}}</span>
+                        </slot>
+                        <i v-if="enableclose" v-on:click="closeAlert" class="m-closebtn m-icon-close"></i>
+                    </div>
+                </div>
+            `,
+            methods: {
+                closeAlert() {
+                    console.log("Please close alert")
+                }
+            }
+        });
+        var app = new Vue({
+            el: "#app",
+            methods: {
+                closeAlert() {
+                    console.log("I close it");
+                }
+            }
+        });
+    </script>
 </body>
 </html>
