@@ -1,0 +1,38 @@
+.filetree {
+    background: #fafafa;
+    border: 4px solid #dbdbdb;
+    border-radius: 4px;
+    margin: 0 0 24px 0;
+    padding: 16px 32px;
+}
+
+.filetree .file {
+    display: block;
+    font-family: Roboto,Helvetica Neue Light,Helvetica Neue,Helvetica,Arial,Lucida Grande,sans-serif;
+    letter-spacing: .3px;
+    line-height: 32px;
+    color: #333;
+}
+
+.filetree .children {
+    padding-left: 24px;
+    position: relative;
+    overflow: hidden;
+}
+
+.filetree .children .file {
+    position: relative;
+}
+
+.filetree .children .file:before {
+    content: "";
+    left: -18px;
+    bottom: 16px;
+    width: 16px;
+    height: 9999px;
+    position: absolute;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    border-color: #dbdbdb;
+    border-radius: 0 0 0 3px;
+}
