@@ -1,0 +1,95 @@
+[class*="m-icon-"], [class^="m-icon-"] {
+    font-family: element-icons !important;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: baseline;
+    display: inline-block;
+    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing: grayscale;
+}
+.m-alert {
+    width: 100%;
+    padding: 8px 16px;
+    margin: 0;
+    box-sizing: border-box;
+    border-radius: 4px;
+    position: relative;
+    background-color: #fff;
+    overflow: hidden;
+    color: #fff;
+    display: table;
+    transition: opacity .2s;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+}
+.m-content {
+    display: table-ceil;
+    padding: 0 8px;
+}
+.m-message {
+    font-size: 13px;
+    line-height: 18px;
+}
+
+.m-alert-success {
+    background-color: #13ce66;
+}
+.m-alert-info {
+    background-color: #50bfff;
+}
+.m-alert-warning {
+    background-color: #f7ba2a;
+}
+.m-alert-error {
+    background-color: #ff4949;
+}
+
+.m-closebtn {
+    font-size: 12px;
+    color: #fff;
+    opacity: 1;
+    top: 12px;
+    right: 15px;
+    position: absolute;
+    cursor: pointer;
+}
+.m-icon-close:before {
+    content: "\e60c";
+}
+
+.m-icon {
+    font-size: 16px;
+    width: 16px;
+    display: table-cell;
+    color: #fff;
+    vertical-align: middle;
+}
+.m-icon-success:before {
+    content: "\e609";
+}
+.m-icon-warning:before {
+    content: "\e615";
+}
+.m-icon-info:before {
+    content: "\e615";
+}
+.m-icon-error:before {
+    content: "\e60b";
+}
+
+.m-icon-message:before {
+    content: "\e618";
+}
+.m-icon-menu:before {
+    content: "\e617";
+}
+.m-icon-setting:before {
+    content: "\e61e";
+}
+
+#app {
+    width: 500px;
+}
