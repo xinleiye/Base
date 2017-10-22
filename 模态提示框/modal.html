@@ -15,6 +15,11 @@
             <ul slot="modal-content">
                 <li v-for="item in list">{{item}}</li>
             </ul>
+            <div slot="modal-footer">
+                <span>确定</span>
+                <span>重置</span>
+                <span>取消</span>
+            </div>
         </my-modal>
     </div>
     <script>
@@ -46,8 +51,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="btn blue" type="button" value="确定" />
-                        <input class="btn" type="button" value="取消" />
+                        <slot name="modal-footer">
+                            <input class="btn blue" type="button" value="确定" />
+                            <input class="btn" type="button" value="取消" />
+                        </slot>
                     </div>
                 </div>
             `
