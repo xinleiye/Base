@@ -9,6 +9,9 @@
     <script src="../public/vue.js"></script>
 </head>
 <body>
+    <div id="app">
+        <filetree v-bind:files="files"></filetree>
+    </div>
     <div class="filetree">
         <div class="file">Angular tour of heroes</div>
         <div class="children">
@@ -24,6 +27,70 @@
                 <div class="file">package.json</div>
             </div>
         </div>
+        <div class="file">abc</div>
     </div>
+    <script>
+            Vue.component("filetree", {
+                props: {
+                    files: {
+                        type: Array,
+                        default: []
+                    }
+                },
+
+                template: `
+                    <div class="filetree">
+                        <filelist v-bind:files="files"></filelist>
+                    </div>
+                `,
+            });
+            Vue.component("filelist", {
+                props: {
+                    files: {
+                        type: Array,
+                        default: []
+                    }
+                },
+                template: `
+                    <div>
+                        <div class="file" v-for="file in files">{{file.name}}</div>
+                    </div>
+                `
+    
+            });
+            new Vue({
+                el: "#app",
+                data: {
+                    files: [{
+                        name: "Angular tour of heroes",
+                        type: "d",
+                        files: [{
+                            name: "src",
+                            type: "d",
+                            files: [{
+                                name: "app",
+                                type: "d",
+                                files: [{
+                                    name: "app.component.ts",
+                                    type: "f"
+                                }, {
+                                    name: "app.module.ts",
+                                    type: "f"
+                                }]
+                            }, {
+                                name: "index.html",
+                                type: "f"
+                            }, {
+                                name: "main.ts",
+                                type: "f"
+                            }, {
+                                name: "package.json",
+                                type: "f"
+                            }]
+                        }]
+                    }]
+                }
+            });
+        </script>
 </body>
 </html>
